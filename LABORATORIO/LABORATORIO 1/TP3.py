@@ -13,13 +13,16 @@ valores_med = [[0.1039,0.1039,0.1039,0.1038,0.1038],
               [1.039,1.039,1.038,1.038,1.037],
               [1.03,1.03,1.03,1.03,1.02],
               [9.08,9.08,9.08,9.08,9.07,9.07,9.07,9.06,9.06,9.06],
-              [9.09,9.09,9.09,9.09,9.09,9.09,9.09,9.09,9.09,9.09]]
+              [9.09,9.09,9.09,9.09,9.09,9.09,9.09,9.09,9.09,9.09],
+              [24,24,24,24,24,24,24,24,24,24],
+              [24,24,24,24,24,24,24,24,24,24]]
               
-vv = [0.10352,0.102474,1.036676,1.029638,9.0543,9.02333]
+vv = [0.10352,0.102474,1.036676,1.029638,9.0543,9.02333,24.00382,24.98672]#Valor medio obtenido con el instrumento de referencia
 
-delta_vv = (0.05/100 + 5/(0.1*1000))*0.1
 
 for i in range(len(valores_med)):
+    
+    delta_vv = (0.05/100 + 5/(0.1*1000))*vv[i]
     
     prom_vmed = st.mean(valores_med[i])#promedio
     
@@ -31,7 +34,7 @@ for i in range(len(valores_med)):
     svi= st.stdev(valores_med[i]) #desvio estandar de los valores medidos
 
     ua_vi = svi/np.sqrt(len(valores_med[i])) #Error tipo a de los valores medidos
-    ub_vi = delta_vi/np.sqrt(3)
+    ub_vi = (0.0001/2)/np.sqrt(3) #La resolucion es 100uV
 
     uc_vi = np.sqrt(ua_vi**2 + ub_vi**2)
     uc_vv = delta_vv/np.sqrt(3)
