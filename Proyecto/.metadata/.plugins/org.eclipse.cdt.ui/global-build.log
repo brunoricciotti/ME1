@@ -1,0 +1,348 @@
+16:09:52 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:240:4: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  240 |    sprintf (buf, "%.2f", Ax);
+      |    ^~~~~~~
+../Core/Src/main.c:240:4: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:23:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   22 | #include "i2c-lcd.h"
+  +++ |+#include <stdio.h>
+   23 | /* Private includes ----------------------------------------------------------*/
+../Core/Src/main.c:240:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  240 |    sprintf (buf, "%.2f", Ax);
+      |                       ^
+../Core/Src/main.c:240:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  240 |    sprintf (buf, "%.2f", Ax);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:246:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  246 |    sprintf (buf, "%.2f", Ay);
+      |                       ^
+../Core/Src/main.c:246:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  246 |    sprintf (buf, "%.2f", Ay);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:252:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  252 |    sprintf (buf, "%.2f", Az);
+      |                       ^
+../Core/Src/main.c:252:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  252 |    sprintf (buf, "%.2f", Az);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:258:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  258 |    sprintf (buf, "%.2f", Gx);
+      |                       ^
+../Core/Src/main.c:258:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  258 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:263:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  263 |    sprintf (buf, "%.2f", Gy);
+      |                       ^
+../Core/Src/main.c:263:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  263 |    sprintf (buf, "%.2f", Gy);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:268:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  268 |    sprintf (buf, "%.2f", Gz);
+      |                       ^
+../Core/Src/main.c:268:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  268 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "LCD_MPU6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\LCD_MPU6050\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LCD_MPU6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: LCD_MPU6050.elf
+ 
+arm-none-eabi-size   LCD_MPU6050.elf 
+arm-none-eabi-objdump -h -S  LCD_MPU6050.elf  > "LCD_MPU6050.list"
+   text	   data	    bss	    dec	    hex	filename
+  26976	    484	   1796	  29256	   7248	LCD_MPU6050.elf
+Finished building: default.size.stdout
+ 
+Finished building: LCD_MPU6050.list
+ 
+16:10:04 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-size   LCD_MPU6050.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26976	    484	   1796	  29256	   7248	LCD_MPU6050.elf
+Finished building: default.size.stdout
+ 
+16:10:57 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:242:4: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  242 |    sprintf (buf, "%.2f", Ax);
+      |    ^~~~~~~
+../Core/Src/main.c:242:4: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:23:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   22 | #include "i2c-lcd.h"
+  +++ |+#include <stdio.h>
+   23 | /* Private includes ----------------------------------------------------------*/
+../Core/Src/main.c:242:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  242 |    sprintf (buf, "%.2f", Ax);
+      |                       ^
+../Core/Src/main.c:242:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  242 |    sprintf (buf, "%.2f", Ax);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:248:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  248 |    sprintf (buf, "%.2f", Ay);
+      |                       ^
+../Core/Src/main.c:248:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  248 |    sprintf (buf, "%.2f", Ay);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:254:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  254 |    sprintf (buf, "%.2f", Az);
+      |                       ^
+../Core/Src/main.c:254:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  254 |    sprintf (buf, "%.2f", Az);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:260:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  260 |    sprintf (buf, "%.2f", Gx);
+      |                       ^
+../Core/Src/main.c:260:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  260 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:265:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  265 |    sprintf (buf, "%.2f", Gy);
+      |                       ^
+../Core/Src/main.c:265:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  265 |    sprintf (buf, "%.2f", Gy);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:270:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  270 |    sprintf (buf, "%.2f", Gz);
+      |                       ^
+../Core/Src/main.c:270:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  270 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "LCD_MPU6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\LCD_MPU6050\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LCD_MPU6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: LCD_MPU6050.elf
+ 
+arm-none-eabi-size   LCD_MPU6050.elf 
+arm-none-eabi-objdump -h -S  LCD_MPU6050.elf  > "LCD_MPU6050.list"
+   text	   data	    bss	    dec	    hex	filename
+  27048	    484	   1796	  29328	   7290	LCD_MPU6050.elf
+Finished building: default.size.stdout
+ 
+Finished building: LCD_MPU6050.list
+ 
+16:12:43 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:260:4: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  260 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~
+../Core/Src/main.c:260:4: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:23:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   22 | #include "i2c-lcd.h"
+  +++ |+#include <stdio.h>
+   23 | /* Private includes ----------------------------------------------------------*/
+../Core/Src/main.c:263:4: warning: implicit declaration of function 'Hal_delay'; did you mean 'HAL_Delay'? [-Wimplicit-function-declaration]
+  263 |    Hal_delay(1000);
+      |    ^~~~~~~~~
+      |    HAL_Delay
+../Core/Src/main.c:260:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  260 |    sprintf (buf, "%.2f", Gx);
+      |                       ^
+../Core/Src/main.c:260:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  260 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:267:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  267 |    sprintf (buf, "%.2f", Gy);
+      |                       ^
+../Core/Src/main.c:267:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  267 |    sprintf (buf, "%.2f", Gy);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:274:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  274 |    sprintf (buf, "%.2f", Gz);
+      |                       ^
+../Core/Src/main.c:274:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  274 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "LCD_MPU6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\LCD_MPU6050\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LCD_MPU6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+c:\st\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: ./Core/Src/main.o: in function `main':
+D:/Documentos/ME1/Proyecto/LCD_MPU6050/Debug/../Core/Src/main.c:263: undefined reference to `Hal_delay'
+c:\st\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: D:/Documentos/ME1/Proyecto/LCD_MPU6050/Debug/../Core/Src/main.c:270: undefined reference to `Hal_delay'
+c:\st\stm32cubeide_1.9.0\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.0.202111181127\tools\arm-none-eabi\bin\ld.exe: D:/Documentos/ME1/Proyecto/LCD_MPU6050/Debug/../Core/Src/main.c:277: undefined reference to `Hal_delay'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: LCD_MPU6050.elf] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+16:13:30 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:260:4: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  260 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~
+../Core/Src/main.c:260:4: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:23:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   22 | #include "i2c-lcd.h"
+  +++ |+#include <stdio.h>
+   23 | /* Private includes ----------------------------------------------------------*/
+../Core/Src/main.c:260:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  260 |    sprintf (buf, "%.2f", Gx);
+      |                       ^
+../Core/Src/main.c:260:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  260 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:267:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  267 |    sprintf (buf, "%.2f", Gy);
+      |                       ^
+../Core/Src/main.c:267:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  267 |    sprintf (buf, "%.2f", Gy);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:274:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  274 |    sprintf (buf, "%.2f", Gz);
+      |                       ^
+../Core/Src/main.c:274:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  274 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "LCD_MPU6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\LCD_MPU6050\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LCD_MPU6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: LCD_MPU6050.elf
+ 
+arm-none-eabi-size   LCD_MPU6050.elf 
+arm-none-eabi-objdump -h -S  LCD_MPU6050.elf  > "LCD_MPU6050.list"
+   text	   data	    bss	    dec	    hex	filename
+  26880	    484	   1796	  29160	   71e8	LCD_MPU6050.elf
+Finished building: default.size.stdout
+ 
+Finished building: LCD_MPU6050.list
+ 
+16:15:49 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:261:4: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  261 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~
+../Core/Src/main.c:261:4: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:23:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   22 | #include "i2c-lcd.h"
+  +++ |+#include <stdio.h>
+   23 | /* Private includes ----------------------------------------------------------*/
+../Core/Src/main.c:261:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  261 |    sprintf (buf, "%.2f", Gx);
+      |                       ^
+../Core/Src/main.c:261:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  261 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:269:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  269 |    sprintf (buf, "%.2f", Gy);
+      |                       ^
+../Core/Src/main.c:269:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  269 |    sprintf (buf, "%.2f", Gy);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:277:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  277 |    sprintf (buf, "%.2f", Gz);
+      |                       ^
+../Core/Src/main.c:277:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  277 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "LCD_MPU6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\LCD_MPU6050\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LCD_MPU6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: LCD_MPU6050.elf
+ 
+arm-none-eabi-size   LCD_MPU6050.elf 
+arm-none-eabi-objdump -h -S  LCD_MPU6050.elf  > "LCD_MPU6050.list"
+   text	   data	    bss	    dec	    hex	filename
+  26896	    484	   1796	  29176	   71f8	LCD_MPU6050.elf
+Finished building: default.size.stdout
+ 
+Finished building: LCD_MPU6050.list
+ 
+16:17:28 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:261:4: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  261 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~
+../Core/Src/main.c:261:4: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:23:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   22 | #include "i2c-lcd.h"
+  +++ |+#include <stdio.h>
+   23 | /* Private includes ----------------------------------------------------------*/
+../Core/Src/main.c:261:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  261 |    sprintf (buf, "%.2f", Gx);
+      |                       ^
+../Core/Src/main.c:261:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  261 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:269:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  269 |    sprintf (buf, "%.2f", Gy);
+      |                       ^
+../Core/Src/main.c:269:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  269 |    sprintf (buf, "%.2f", Gy);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:277:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  277 |    sprintf (buf, "%.2f", Gz);
+      |                       ^
+../Core/Src/main.c:277:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  277 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "LCD_MPU6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\LCD_MPU6050\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LCD_MPU6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: LCD_MPU6050.elf
+ 
+arm-none-eabi-size   LCD_MPU6050.elf 
+arm-none-eabi-objdump -h -S  LCD_MPU6050.elf  > "LCD_MPU6050.list"
+   text	   data	    bss	    dec	    hex	filename
+  26888	    484	   1796	  29168	   71f0	LCD_MPU6050.elf
+Finished building: default.size.stdout
+ 
+Finished building: LCD_MPU6050.list
+ 
+16:25:04 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:277:4: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  277 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~
+../Core/Src/main.c:277:4: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:23:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   22 | #include "i2c-lcd.h"
+  +++ |+#include <stdio.h>
+   23 | /* Private includes ----------------------------------------------------------*/
+../Core/Src/main.c:277:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  277 |    sprintf (buf, "%.2f", Gz);
+      |                       ^
+../Core/Src/main.c:277:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  277 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "LCD_MPU6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\LCD_MPU6050\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LCD_MPU6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: LCD_MPU6050.elf
+ 
+arm-none-eabi-size   LCD_MPU6050.elf 
+arm-none-eabi-objdump -h -S  LCD_MPU6050.elf  > "LCD_MPU6050.list"
+   text	   data	    bss	    dec	    hex	filename
+  26752	    484	   1796	  29032	   7168	LCD_MPU6050.elf
+Finished building: default.size.stdout
+ 
+Finished building: LCD_MPU6050.list
+ 
+16:29:22 **** Incremental Build of configuration Debug for project LCD_MPU6050 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:261:4: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+  261 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~
+../Core/Src/main.c:261:4: warning: incompatible implicit declaration of built-in function 'sprintf'
+../Core/Src/main.c:23:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   22 | #include "i2c-lcd.h"
+  +++ |+#include <stdio.h>
+   23 | /* Private includes ----------------------------------------------------------*/
+../Core/Src/main.c:261:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  261 |    sprintf (buf, "%.2f", Gx);
+      |                       ^
+../Core/Src/main.c:261:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  261 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "LCD_MPU6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\LCD_MPU6050\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LCD_MPU6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: LCD_MPU6050.elf
+ 
+arm-none-eabi-size   LCD_MPU6050.elf 
+arm-none-eabi-objdump -h -S  LCD_MPU6050.elf  > "LCD_MPU6050.list"
+   text	   data	    bss	    dec	    hex	filename
+  26496	    484	   1780	  28760	   7058	LCD_MPU6050.elf
+Finished building: default.size.stdout
+ 
+Finished building: LCD_MPU6050.list
+ 

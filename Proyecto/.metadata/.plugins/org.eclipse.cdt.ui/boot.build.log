@@ -1,0 +1,10 @@
+02:06:19 **** Incremental Build of configuration Debug for project boot ****
+make -j12 all 
+arm-none-eabi-size   boot.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6164	     20	   1644	   7828	   1e94	boot.elf
+Finished building: default.size.stdout
+ 
+
+02:06:19 Build Finished. 0 errors, 0 warnings. (took 356ms)
+

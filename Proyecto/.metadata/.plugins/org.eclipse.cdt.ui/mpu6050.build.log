@@ -1,0 +1,60 @@
+01:48:25 **** Incremental Build of configuration Debug for project mpu6050 ****
+make -j12 all 
+arm-none-eabi-gcc -c "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 '-D__weak=__attribute__((weak))' '-D__packed=__attribute__((__packed__))' -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -Os -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'MPU6050_Init':
+../Src/main.c:90:10: warning: unused variable 'check' [-Wunused-variable]
+   90 |  uint8_t check;
+      |          ^~~~~
+../Src/main.c: In function 'main':
+../Src/main.c:236:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  236 |    sprintf (buf, "%.2f", Ax);
+      |                       ^
+../Src/main.c:236:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  236 |    sprintf (buf, "%.2f", Ax);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:242:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  242 |    sprintf (buf, "%.2f", Ay);
+      |                       ^
+../Src/main.c:242:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  242 |    sprintf (buf, "%.2f", Ay);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:248:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  248 |    sprintf (buf, "%.2f", Az);
+      |                       ^
+../Src/main.c:248:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  248 |    sprintf (buf, "%.2f", Az);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:254:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  254 |    sprintf (buf, "%.2f", Gx);
+      |                       ^
+../Src/main.c:254:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  254 |    sprintf (buf, "%.2f", Gx);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:259:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  259 |    sprintf (buf, "%.2f", Gy);
+      |                       ^
+../Src/main.c:259:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  259 |    sprintf (buf, "%.2f", Gy);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:264:23: warning: 'sprintf' may write a terminating nul past the end of the destination [-Wformat-overflow=]
+  264 |    sprintf (buf, "%.2f", Gz);
+      |                       ^
+../Src/main.c:264:4: note: 'sprintf' output between 4 and 314 bytes into a destination of size 4
+  264 |    sprintf (buf, "%.2f", Gz);
+      |    ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -u _printf_float -o "mpu6050.elf" @"objects.list"   -mcpu=cortex-m3 -T"../STM32F103C8_FLASH.ld" --specs=nosys.specs -Wl,-Map="mpu6050.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: mpu6050.elf
+ 
+arm-none-eabi-size   mpu6050.elf 
+arm-none-eabi-objdump -h -S  mpu6050.elf  > "mpu6050.list"
+   text	   data	    bss	    dec	    hex	filename
+  22280	    484	   1796	  24560	   5ff0	mpu6050.elf
+Finished building: default.size.stdout
+ 
+Finished building: mpu6050.list
+ 
+arm-none-eabi-objcopy.exe -O ihex "mpu6050.elf" "mpu6050.hex"
+ 
+
+01:48:26 Build Finished. 0 errors, 7 warnings. (took 1s.84ms)
+

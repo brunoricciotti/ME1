@@ -1,0 +1,23 @@
+#include "stm32f1xx_hal.h"
+
+// LCD instructions
+#define lcd_Clear           0b00000001          // replace all characters with ASCII 'space'
+#define lcd_Home            0b00000010          // return cursor to first position on first line
+#define lcd_EntryMode       0b00000110          // shift cursor from left to right on read/write
+#define lcd_DisplayOff      0b00001000          // turn display off
+#define lcd_DisplayOn       0b00001100          // display on, cursor off, don't blink character
+#define lcd_FunctionReset   0b00110000          // reset the LCD
+#define lcd_FunctionSet4bit 0b00101000          // 4-bit data, 2-line display, 5 x 7 font
+#define lcd_SetCursor       0b10000000
+
+void lcd_init (void);   // initialize lcd
+
+void lcd_send_cmd (char cmd);  // send command to the lcd
+
+void lcd_send_data (char data);  // send data to the lcd
+
+void lcd_send_string (char *str);  // send string to the lcd
+
+void lcd_put_cur(int row, int col);  // put cursor at the entered position row (0 or 1), col (0-15);
+
+void lcd_clear (void);
