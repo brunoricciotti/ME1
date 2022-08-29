@@ -85,12 +85,12 @@ float Ax, Ay, Az, Gx, Gy, Gz;
 
 void MPU6050_Init (void)
 {
-	uint8_t check;
+	uint8_t check =0;
 	uint8_t Data;
 
 	// check device ID WHO_AM_I
 
-	HAL_I2C_Mem_Read (&hi2c2, MPU6050_ADDR,WHO_AM_I_REG,1, &check, 1, 1000);
+	HAL_I2C_Mem_Read (&hi2c2, MPU6050_ADDR,WHO_AM_I_REG,1, &check, 1, 3000);
 
 	if (check == 0x68)  // 0x68 will be returned by the sensor if everything goes well
 	{
@@ -145,7 +145,7 @@ void MPU6050_Read_Gyro (void)
 
 	// Read 6 BYTES of data starting from GYRO_XOUT_H register
 
-	HAL_I2C_Mem_Read (&hi2c2, MPU6050_ADDR, GYRO_XOUT_H_REG, 1, Rec_Data, 6, 2000);
+	HAL_I2C_Mem_Read (&hi2c2, MPU6050_ADDR, GYRO_XOUT_H_REG, 1, Rec_Data, 6, 1000);
 
 	Gyro_X_RAW = (int16_t)(Rec_Data[0] << 8 | Rec_Data [1]);
 	Gyro_Y_RAW = (int16_t)(Rec_Data[2] << 8 | Rec_Data [3]);
@@ -232,7 +232,7 @@ int main(void)
 
 	  // read the Accelerometer and Gyro values
 
-	//  MPU6050_Read_Accel();
+	  MPU6050_Read_Accel();
 	  MPU6050_Read_Gyro();
 
 	  // print the Acceleration and Gyro values on the LCD 20x4
@@ -257,11 +257,11 @@ int main(void)
 
 	  lcd_clear();
 	  lcd_put_cur(0, 0);
-	  lcd_send_string ("Gx=");
-	  sprintf (buf, "%.2f", Gx);
+	  lcd_send_string ("Gy=");
+	  sprintf (buf, "%.2f", Gy);
 	  lcd_send_string (buf);
 
-	  HAL_Delay(100);
+	  HAL_Delay(500);
 /*
 	  lcd_clear();
 	  lcd_put_cur(0, 0);  // goto 2,11
