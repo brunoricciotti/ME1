@@ -1,0 +1,2 @@
+../Core/Src/MPU9250.c:13:6:MPU9250_init	32	static
+../Core/Src/MPU9250.c:44:10:MPU_readRawData	32	static
