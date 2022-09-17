@@ -98,7 +98,7 @@ void MPU6050_Init (void)
 		HAL_I2C_Mem_Write(&hi2c1, MPU6050_ADDR, PWR_MGMT_1_REG, 1,&Data, 1, 1000);
 
 		// Set DATA RATE of 1KHz by writing SMPLRT_DIV register
-		Data = 0x07;
+		Data = 0x00;
 		HAL_I2C_Mem_Write(&hi2c1, MPU6050_ADDR, SMPLRT_DIV_REG, 1, &Data, 1, 1000);
 
 		// Set accelerometer configuration in ACCEL_CONFIG Register

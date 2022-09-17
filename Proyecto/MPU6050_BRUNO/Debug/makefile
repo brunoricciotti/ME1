@@ -60,8 +60,8 @@ all: main-build
 main-build: MPU6050_BRUNO.elf secondary-outputs
 
 # Tool invocations
-MPU6050_BRUNO.elf MPU6050_BRUNO.map: $(OBJS) $(USER_OBJS) D:\Documentos\ME1\Proyecto\MPU6050_BRUNO\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "MPU6050_BRUNO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\MPU6050_BRUNO\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MPU6050_BRUNO.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+MPU6050_BRUNO.elf MPU6050_BRUNO.map: $(OBJS) $(USER_OBJS) D:\Documentos\ME1\ME1\Proyecto\MPU6050_BRUNO\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "MPU6050_BRUNO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Documentos\ME1\ME1\Proyecto\MPU6050_BRUNO\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MPU6050_BRUNO.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
