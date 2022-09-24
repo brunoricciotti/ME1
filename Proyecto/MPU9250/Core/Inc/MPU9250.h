@@ -13,7 +13,7 @@
 #define RAD2DEG 57.2957795131
 
 // Defines
-#define WHO_AM_I_9250_ANS 0x71
+#define WHO_AM_I_9250_ANS 0x70
 #define WHO_AM_I          0x75
 #define AD0_LOW           0x68
 #define AD0_HIGH          0x69
@@ -25,10 +25,11 @@
 #define ACCEL_XOUT_H      0x3B
 #define I2C_TIMOUT_MS     1000
 
-#define MPU9250_ADDR      0x68
+#define MPU9250_ADDR      0xD0 //0x68 << 1
 
 void MPU9250_init(void);
 uint16_t MPU_readRawData(void);
+void MPU9250_Read_Accel (void);
 
 enum accelerometerFullScaleRange
 {

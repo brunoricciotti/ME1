@@ -10,6 +10,12 @@
 
 extern I2C_HandleTypeDef hi2c1;
 
+int16_t Ax;
+int16_t Accel_X_RAW = 0;
+int16_t Accel_Y_RAW = 0;
+int16_t Accel_Z_RAW = 0;
+
+
 void MPU9250_init(void){
 
 	uint8_t check = 0;
@@ -26,7 +32,7 @@ void MPU9250_init(void){
 		HAL_I2C_Mem_Write(&hi2c1, MPU9250_ADDR, PWR_MGMT_1, 1,&Data, 1, 1000);
 
 		// power management 2 register 0X6C habilito solo el eje x del acelerometro
-		Data = 0x20;
+		Data = 0x1F;
 		HAL_I2C_Mem_Write(&hi2c1, MPU9250_ADDR, PWR_MGMT_2, 1,&Data, 1, 1000);
 
 		// Set DATA RATE of 1KHz by writing SMPLRT_DIV register
@@ -45,7 +51,6 @@ uint16_t MPU_readRawData(void)
 {
     // Init buffer
     uint8_t buf[2];
-    uint16_t Ax;
 
     // Subroutine for reading the raw data
     HAL_I2C_Mem_Read(&hi2c1, MPU9250_ADDR, ACCEL_XOUT_H, 1, buf, 2, I2C_TIMOUT_MS);
@@ -53,6 +58,30 @@ uint16_t MPU_readRawData(void)
     // Bit shift the data
     Ax = buf[0] << 8 | buf[1];
 
+	// Para leer el angulo: arcsin(Ax/16384)
     return Ax;
 
+}
+
+void MPU9250_Read_Accel (void)//esto no lo uso todavia
+{
+	uint8_t Rec_Data[6];
+
+	//Solo usamos Ax
+
+	HAL_I2C_Mem_Read (&hi2c1, MPU9250_ADDR, ACCEL_XOUT_H, 1, Rec_Data, 6, I2C_TIMOUT_MS);
+
+	Accel_X_RAW = (int16_t)(Rec_Data[0] << 8 | Rec_Data [1]);//De esta forma leemos 2 bytes
+
+	//Accel_Y_RAW = (int16_t)(Rec_Data[2] << 8 | Rec_Data [3]);
+	//Accel_Z_RAW = (int16_t)(Rec_Data[4] << 8 | Rec_Data [5]);
+
+	/*** convert the RAW values into acceleration in 'g'
+	     we have to divide according to the Full scale value set in FS_SEL
+	     I have configured FS_SEL = 0. So I am dividing by 16384.0
+	     for more details check ACCEL_CONFIG Register              ****/
+
+	//Ax = Accel_X_RAW/32768.0;
+	//Ay = Accel_Y_RAW/32768.0;
+	//Az = Accel_Z_RAW/32768.0;
 }

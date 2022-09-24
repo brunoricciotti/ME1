@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "MPU9250.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -101,9 +102,9 @@ uint32_t ticks =0;
   {
 	  ticks = HAL_GetTick();
     /* USER CODE END WHILE */
-	  if(!(ticks %= 500)){
+	  if(!(ticks %= 500)){ //Lee datos cada 0.5s
 
-		  Datos = MPU_readRawData();
+		  MPU_readRawData();
 	  }
 
     /* USER CODE BEGIN 3 */
