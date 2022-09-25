@@ -60,8 +60,8 @@ all: main-build
 main-build: MPU9250.elf secondary-outputs
 
 # Tool invocations
-MPU9250.elf MPU9250.map: $(OBJS) $(USER_OBJS) D:\Documentos\ME1\Proyecto\MPU9250\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "MPU9250.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Documentos\ME1\Proyecto\MPU9250\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MPU9250.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+MPU9250.elf MPU9250.map: $(OBJS) $(USER_OBJS) C:\Users\bruno\OneDrive\Documentos\ME1\ME1\Proyecto\MPU9250\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "MPU9250.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\bruno\OneDrive\Documentos\ME1\ME1\Proyecto\MPU9250\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MPU9250.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

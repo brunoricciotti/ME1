@@ -47,7 +47,7 @@ void MPU9250_init(void){
 
 }
 
-uint16_t MPU_readRawData(void)
+int16_t MPU_readRawData(void)
 {
     // Init buffer
     uint8_t buf[2];

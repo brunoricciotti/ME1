@@ -28,7 +28,7 @@
 #define MPU9250_ADDR      0xD0 //0x68 << 1
 
 void MPU9250_init(void);
-uint16_t MPU_readRawData(void);
+int16_t MPU_readRawData(void);
 void MPU9250_Read_Accel (void);
 
 enum accelerometerFullScaleRange
