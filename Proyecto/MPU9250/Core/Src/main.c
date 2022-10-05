@@ -32,6 +32,10 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define CANT_MUESTRAS	200
+#define TIEMPO_DATOS	500//ms
+#define VAL_MAX			16384
+#define K				57.295779//rad a grad
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,48 +55,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
 int16_t arcsen(uint16_t);
-uint16_t fpsin(int16_t);
 
-//LUT de seno con 360 puntos, su forma se explica en arcsen()
-const uint16_t LUTsin[360] =
-{
-0 , 287 , 574 , 862 , 1149 ,
-1435 , 1722 , 2007 , 2292 , 2577 ,
-2860 , 3143 , 3425 , 3705 , 3985 ,
-4263 , 4540 , 4816 , 5090 , 5362 ,
-5633 , 5902 , 6170 , 6435 , 6698 ,
-6960 , 7219 , 7476 , 7731 , 7983 ,
-8233 , 8480 , 8725 , 8967 , 9206 ,
-9443 , 9676 , 9907 , 10134 , 10359 ,
-10580 , 10798 , 11012 , 11224 , 11431 ,
-11635 , 11836 , 12033 , 12226 , 12416 ,
-12602 , 12783 , 12961 , 13135 , 13305 ,
-13471 , 13632 , 13790 , 13943 , 14092 ,
-14236 , 14376 , 14512 , 14643 , 14770 ,
-14892 , 15010 , 15123 , 15231 , 15334 ,
-15433 , 15527 , 15617 , 15701 , 15781 ,
-15856 , 15926 , 15991 , 16051 , 16106 ,
-16156 , 16202 , 16242 , 16277 , 16307 ,
-16332 , 16353 , 16368 , 16378 , 16383 ,
-16383 , 16378 , 16368 , 16353 , 16332 ,
-16307 , 16277 , 16242 , 16202 , 16156 ,
-16106 , 16051 , 15991 , 15926 , 15856 ,
-15781 , 15701 , 15617 , 15527 , 15433 ,
-15334 , 15231 , 15123 , 15010 , 14892 ,
-14770 , 14643 , 14512 , 14376 , 14236 ,
-14092 , 13943 , 13790 , 13632 , 13471 ,
-13305 , 13135 , 12961 , 12783 , 12602 ,
-12416 , 12226 , 12033 , 11836 , 11635 ,
-11431 , 11224 , 11012 , 10798 , 10580 ,
-10359 , 10134 , 9907 , 9676 , 9443 ,
-9206 , 8967 , 8725 , 8480 , 8233 ,
-7983 , 7731 , 7476 , 7219 , 6960 ,
-6698 , 6435 , 6170 , 5902 , 5633 ,
-5362 , 5090 , 4816 , 4540 , 4263 ,
-3985 , 3705 , 3425 , 3143 , 2860 ,
-2577 , 2292 , 2007 , 1722 , 1435 ,
-1149 , 862 , 574 , 287 , 0 ,
-};
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -106,18 +69,19 @@ const uint16_t LUTsin[360] =
   * @brief  The application entry point.
   * @retval int
   */
-int16_t Datos, resultado;
-uint32_t ticks =0;
+float Datos, resultado;
 float angulo;
 float aceleracion;
-float k = 57.295779; //convierte de radianes a grados
 
 int main(void)
 {
   /* USER CODE BEGIN 1 */
 	/* USER CODE END 1 */
-
   /* MCU Configuration--------------------------------------------------------*/
+
+uint32_t ticks =0;
+uint8_t i = 0;
+static float promedio = 0;
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -147,21 +111,19 @@ int main(void)
   {
 	  ticks = HAL_GetTick();
     /* USER CODE END WHILE */
-	  if(!(ticks %= 500))
+
+	  if(!(ticks %= TIEMPO_DATOS))//muestro un nuevo angulo cada TIEMPO_DATOS ms
 	  {
-		  //Datos: variable que va desde 0 a 65535
-		  Datos = MPU_readRawData();
+		  for(i = 0; i < CANT_MUESTRAS; i++){
+			  Datos = MPU_readRawData();//Datos: variable que va desde 0 a 65535
+			  promedio +=Datos;
+		  }
 
-		  aceleracion = (float)Datos/16384;
+		  promedio /= CANT_MUESTRAS;
+		  aceleracion = (float)promedio/VAL_MAX;
+		  angulo = asinf(aceleracion)*K;//angulo en grados
 
-		  //Para pasar de datos a resultado, divido por la gravedad y hago regla de 3 para convertirlo al rango de resultado
-		  //Arcoseno recibe de -1 a 1, si 65535 es 8192, entonces datos es x
-		  //Resultado, variable que va de 4096 a 8192 (0: 4096, 8192:pi/2)
-
-		  angulo = asinf(aceleracion)*k;//angulo en grados
-
-		  //angulofinal = arcsen(Datos);
-
+		  promedio = 0;
 	  }
     /* USER CODE BEGIN 3 */
   }

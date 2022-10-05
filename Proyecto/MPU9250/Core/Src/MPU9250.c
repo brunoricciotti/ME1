@@ -14,6 +14,7 @@ int16_t Ax;
 int16_t Accel_X_RAW = 0;
 int16_t Accel_Y_RAW = 0;
 int16_t Accel_Z_RAW = 0;
+int16_t rango[2] = {0,1000};
 
 
 void MPU9250_init(void){
@@ -43,6 +44,10 @@ void MPU9250_init(void){
 		// XA_ST=0,YA_ST=0,ZA_ST=0, FS_SEL=0 -> � 2g
 		Data = 0x00;
 		HAL_I2C_Mem_Write(&hi2c1, MPU9250_ADDR, ACCEL_CONFIG, 1, &Data, 1, 1000);
+
+		//Activo el Loww pass filter con 0110. Registro 1D (29)
+		Data = 0x06;
+		HAL_I2C_Mem_Write(&hi2c1, MPU9250_ADDR, ACCEL_CONFIG_2, 1, &Data, 1, 1000);
 	}
 
 }
@@ -59,8 +64,8 @@ int16_t MPU_readRawData(void)
     Ax = buf[0] << 8 | buf[1];
 
 	// Para leer el angulo: arcsin(Ax/16384)
-    return Ax;
 
+    return Ax;
 }
 
 void MPU9250_Read_Accel (void)//esto no lo uso todavia

@@ -19,6 +19,7 @@
 #define AD0_HIGH          0x69
 #define GYRO_CONFIG       0x1B
 #define ACCEL_CONFIG      0x1C
+#define ACCEL_CONFIG_2	  0x1D
 #define PWR_MGMT_1        0x6B
 #define PWR_MGMT_2        0x6C
 #define SMPLRT_DIV_REG	  0x19
