@@ -18,11 +18,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "MPU9250.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "MPU9250.h"
+#include "arrebote.h"
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,6 +37,13 @@
 #define TIEMPO_DATOS	500//ms
 #define VAL_MAX			16384
 #define K				57.295779//rad a grad
+
+#define PULSADOR_ACTIVO_BAJO	(1)
+#define PULSADOR_TICS			(20)
+#define PULSADOR_PUERTO			(GPIOB)
+#define PULSADOR_PIN			(GPIO_PIN_0)
+#define LED_PLACA_PUERTO		(GPIOC)
+#define LED_PLACA_PIN			(GPIO_PIN_13)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -47,15 +55,18 @@
  I2C_HandleTypeDef hi2c1;
 
 /* USER CODE BEGIN PV */
-
+ float Datos, resultado;
+ float angulo;
+ float aceleracion;
+ arrebote pulsador;
+ uint8_t seteo_zero = 0;
+ float base = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
-int16_t arcsen(uint16_t);
-
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -69,19 +80,15 @@ int16_t arcsen(uint16_t);
   * @brief  The application entry point.
   * @retval int
   */
-float Datos, resultado;
-float angulo;
-float aceleracion;
-
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	/* USER CODE END 1 */
-  /* MCU Configuration--------------------------------------------------------*/
+  uint32_t ticks =0;uint8_t i = 0;
+  float angulo_display;
+  static float promedio = 0;
+  /* USER CODE END 1 */
 
-uint32_t ticks =0;
-uint8_t i = 0;
-static float promedio = 0;
+  /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
@@ -103,72 +110,43 @@ static float promedio = 0;
   /* USER CODE BEGIN 2 */
 
   MPU9250_init();//inicializo el sensor
+  inicializar_arrebote(&pulsador, PULSADOR_ACTIVO_BAJO, PULSADOR_TICS);
 
   /* USER CODE END 2 */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  chequear_arrebote(&pulsador, HAL_GPIO_ReadPin(PULSADOR_PUERTO, PULSADOR_PIN));
+	  if(hay_flanco_arrebote(&pulsador))	base = angulo;
+
 	  ticks = HAL_GetTick();
-    /* USER CODE END WHILE */
 
 	  if(!(ticks %= TIEMPO_DATOS))//muestro un nuevo angulo cada TIEMPO_DATOS ms
 	  {
-		  for(i = 0; i < CANT_MUESTRAS; i++){
-			  Datos = MPU_readRawData();//Datos: variable que va desde 0 a 65535
-			  promedio +=Datos;
-		  }
+	  	for(i = 0; i < CANT_MUESTRAS; i++){
+	  		Datos = MPU_readRawData();//Datos: variable que va desde 0 a 65535
+	  		promedio +=Datos;
+	  	}
 
-		  promedio /= CANT_MUESTRAS;
-		  aceleracion = (float)promedio/VAL_MAX;
-		  angulo = asinf(aceleracion)*K;//angulo en grados
+	  	promedio /= CANT_MUESTRAS;
+	  	aceleracion = (float)promedio/VAL_MAX;
+	  	angulo = asinf(aceleracion)*K;//angulo en grados
 
-		  promedio = 0;
+	  	angulo_display = angulo - base;
+
+	  	//if(seteo_zero) seteo_zero == 0;
+
+	  	promedio = 0;
 	  }
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
 }
 
-int16_t arcsen(uint16_t dato)
-{
-	int i = 0;
-	static int a = 0;
-	uint16_t res = 0;
-	static int masnoventa = 0;
-	//Dato es resultado, un valor que va de -1 a 1, o mas exactamente de 0 a 8192 (unsigned) donde 0, 180 y 360 son 4096
-	//90 grados son 8192 y 270 grados es 0
-	//Dato empieza en 0, va para 1, baja a 0 y termina ahi (180 grados)
-	//Yo tengo una LUT que va de 0 a 8192, empieza en 4096, sube hasta 8192, vuelve a bajar hasta 0 y termina en 4096
-	//Comparando LUT y dato (hasta pi/2): si 4096 es 0(dato), entonces  es 2048(dato)
-	for (i = 0; i<= 90; i++)
-	{
-		if ((dato >= LUTsin[i]) && ((dato <= LUTsin[i+1])))
-		{
-			res = i;
-			a = 0;//No estoy en 90 grados
-		}
-	}
-	if (dato == 8192) //Caso 90 grados, pto maximo de la funcion solo puedo verla de esta forma, 8191 ya son 89 grados
-	{
-		//A esta funcion puede entrar varias veces seguidas hasta que se cambie el angulo, defino variable a, que se pondrá en 1
-		//si es la primera vez que entra a este if
-		if (!a)
-		{
-			a = 1;
-			if (!masnoventa) //Si estaba en 89 y subí a 90, ahora el resultado va a estar entre 91 y 180, por lo que cambio el modo
-				masnoventa = 1;
-			else masnoventa = 0;//si estaba en 91 y bajó, hago lo contrario
-		}
-		res = 90;
-	}
-	//ME PASO DE 90 GRADOS ---> sen(x) = sen(180-x)
-	if ((masnoventa == 1) && (a == 0))
-	{
-		res = 180-res;
-	}
-	return res;
-}
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -249,11 +227,18 @@ static void MX_I2C1_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin : PB0 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 
