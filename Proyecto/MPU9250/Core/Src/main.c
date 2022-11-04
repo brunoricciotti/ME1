@@ -34,7 +34,6 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define CANT_MUESTRAS	200
-#define TIEMPO_DATOS	500//ms
 #define VAL_MAX			16384
 #define K				57.295779//rad a grad
 
@@ -54,12 +53,14 @@
 /* Private variables ---------------------------------------------------------*/
  I2C_HandleTypeDef hi2c1;
 
+TIM_HandleTypeDef htim2;
+
 /* USER CODE BEGIN PV */
  float Datos, resultado;
  float angulo;
  float aceleracion;
  arrebote pulsador;
- uint8_t seteo_zero = 0;
+ uint8_t mostrar_datos = 0;
  float base = 0;
 /* USER CODE END PV */
 
@@ -67,6 +68,7 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -83,7 +85,7 @@ static void MX_I2C1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  uint32_t ticks =0;uint8_t i = 0;
+  uint8_t i = 0;
   float angulo_display;
   static float promedio = 0;
   /* USER CODE END 1 */
@@ -107,6 +109,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
+  MX_TIM2_Init();
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE BEGIN 2 */
 
   MPU9250_init();//inicializo el sensor
@@ -121,9 +125,7 @@ int main(void)
 	  chequear_arrebote(&pulsador, HAL_GPIO_ReadPin(PULSADOR_PUERTO, PULSADOR_PIN));
 	  if(hay_flanco_arrebote(&pulsador))	base = angulo;
 
-	  ticks = HAL_GetTick();
-
-	  if(!(ticks %= TIEMPO_DATOS))//muestro un nuevo angulo cada TIEMPO_DATOS ms
+	  if(mostrar_datos)//muestro un nuevo angulo cada 500 ms
 	  {
 	  	for(i = 0; i < CANT_MUESTRAS; i++){
 	  		Datos = MPU_readRawData();//Datos: variable que va desde 0 a 65535
@@ -139,12 +141,18 @@ int main(void)
 	  	//if(seteo_zero) seteo_zero == 0;
 
 	  	promedio = 0;
+	  	mostrar_datos = 0;
 	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
+{
+    mostrar_datos = 1;
 }
 
 /**
@@ -217,6 +225,51 @@ static void MX_I2C1_Init(void)
   /* USER CODE BEGIN I2C1_Init 2 */
 
   /* USER CODE END I2C1_Init 2 */
+
+}
+
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM2_Init(void)
+{
+
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
+  htim2.Instance = TIM2;
+  htim2.Init.Prescaler = 1000;
+  htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim2.Init.Period = 36000;
+  htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim2, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
 
 }
 
